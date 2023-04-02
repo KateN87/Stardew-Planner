@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Home from './Pages/Home';
-import AddResource from './Pages/AddResource';
+import ResourceList from './Pages/AddResource';
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
 
@@ -28,7 +28,10 @@ function App() {
                     path='/'
                     element={user ? <Home /> : <Navigate to='/login' />}
                 />
-                <Route path='/addResource' element={<AddResource />} />
+                <Route
+                    path='/findResource'
+                    element={user ? <ResourceList /> : <Navigate to='/login' />}
+                />
                 <Route
                     path='/login'
                     element={!user ? <Login /> : <Navigate to='/' />}

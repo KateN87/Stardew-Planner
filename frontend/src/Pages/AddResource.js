@@ -1,71 +1,86 @@
-import { useState } from 'react';
-/* import Crops from '../database/Crops.js';
-import Animals from '../database/Animals.js';
-import Fish from '../database/Fish.js';
-import Minerals from '../database/Minerals.js';
-import Artifacts from '../database/Artifacts.js';
-import Forage from '../database/Forage.js'; */
+import { useEffect, useState } from 'react';
 
-/* const ShowList = () => {
-    return (
-        <div className='card card-container'>
-            <div className='card-header'>
-                Resources to Find
-                <button>Save</button>
-            </div>
-            <div className='card-body'>
-                <div className='calendar-list'>
-                    <input
-                        className='container-left small-input'
-                        type='number'
-                        min='0'
-                        max='999'
-                    />
-                    <p className='container-right'>
-                        <img
-                        className='calendar-img'
-                        src={`${season.image}`}
-                    ></img>
-                        wood
-                    </p>
-                </div>
-            </div>
-        </div>
-    );
-}; */
+import UserResources from '../Components/UserResources';
 
-const AddResource = () => {
+const ResourceList = () => {
     const [resource, setResource] = useState('Animals');
-    /* const resources = { Crops, Animals, Fish, Minerals, Artifacts, Forage }; */
+    const [resourceList, setResourceList] = useState('');
 
-    /* const handleAdd = (name) => {
+    useEffect(() => {
+        const fetchResources = async () => {
+            let url = '';
+            switch (resource) {
+                case 'Animals':
+                    url = '/api/resources/animalsData';
+                    break;
+                case 'Fish':
+                    url = '/api/resources/fishData';
+                    break;
+                case 'Crops':
+                    url = '/api/resources/cropsData';
+                    break;
+                case 'Minerals':
+                    url = '/api/resources/mineralsData';
+                    break;
+                case 'Artifacts':
+                    url = '/api/resources/artifactsData';
+                    break;
+                case 'Forage':
+                    url = '/api/resources/forageData';
+                    break;
+                default:
+                    break;
+            }
+            const response = await fetch(url);
+            const json = await response.json();
+
+            if (response.ok) {
+                setResourceList(json);
+            }
+        };
+        fetchResources();
+    }, [resource]);
+
+    const handleAdd = (name) => {
         console.log(name);
-    }; */
+    };
 
-    /*     const ShowResource = () => {
-        const selected = resources[resource];
+    const ShowResource = () => {
         return (
             <div className='card-body'>
                 <h5 className='card-title'>{resource}</h5>
-                {selected.map((item) => (
-                    <div className='calendar-list' key={item.Name}>
+                {resourceList.map((item) => (
+                    <div
+                        className='calendar-list resourcesList'
+                        key={item.Name}
+                    >
                         <p className='container-left'>
                             <img
                                 className='calendar-img'
                                 src={`${item.Image}`}
                             ></img>
-                                                        <button onClick={() => handleAdd(item.Name)}>
-                                Add
-                            </button>
                         </p>
-                        <p className='container-right'>{item.Name}</p>
+                        <p className='container-right'>{item.Name}</p>{' '}
+                        <input
+                            className='small-input'
+                            type='number'
+                            placeholder='Qty'
+                            min='0'
+                            max='999'
+                        />
+                        <button
+                            className='btnRight'
+                            onClick={() => handleAdd(item.Name)}
+                        >
+                            Add
+                        </button>
                     </div>
                 ))}
             </div>
         );
-    }; */
+    };
 
-    const ResourceComponent = (props) => {
+    const ResourceHeader = (props) => {
         return (
             <li className='nav-item' key={props.resource}>
                 <button
@@ -80,25 +95,28 @@ const AddResource = () => {
             </li>
         );
     };
+    if (resourceList.length === 0) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className='page-container row'>
             <div className='card card-container resource-container'>
                 <div className='card-header'>
                     <ul className='nav nav-tabs card-header-tabs'>
-                        <ResourceComponent resource='Crops' />
-                        <ResourceComponent resource='Fish' />
-                        <ResourceComponent resource='Animals' />
-                        <ResourceComponent resource='Minerals' />
-                        <ResourceComponent resource='Artifacts' />
-                        <ResourceComponent resource='Forage' />
+                        <ResourceHeader resource='Crops' />
+                        <ResourceHeader resource='Fish' />
+                        <ResourceHeader resource='Animals' />
+                        <ResourceHeader resource='Minerals' />
+                        <ResourceHeader resource='Artifacts' />
+                        <ResourceHeader resource='Forage' />
                     </ul>
                 </div>
-                {/* <ShowResource /> */}
+                <ShowResource />
             </div>
-            {/* <ShowList /> */}
+            <UserResources />
         </div>
     );
 };
 
-export default AddResource;
+export default ResourceList;

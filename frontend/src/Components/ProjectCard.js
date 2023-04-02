@@ -8,7 +8,7 @@ const ProjectCard = () => {
         <div className='card card-container'>
             <div className='card-header'>
                 Resources to Find
-                <Link to='/addResource'>
+                <Link to='/findResource'>
                     <button>Add</button>
                 </Link>
             </div>
