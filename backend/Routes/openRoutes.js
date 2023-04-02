@@ -10,6 +10,7 @@ import CropsData from '../models/cropsModel.js';
 import FishData from '../models/fishModel.js';
 import ForageData from '../models/forageModel.js';
 import MineralsData from '../models/mineralModel.js';
+import ResourceOrder from '../models/resourceOrderModel.js';
 
 const router = express.Router();
 
@@ -35,10 +36,14 @@ router.post('/login', async (req, res) => {
 //Signup route
 router.post('/signup', async (req, res) => {
     const { userName, password } = req.body;
+    const listOfResources = [{ itemId: '', itemName: '', quantity: 0 }];
+
     try {
         const user = await User.signup(userName, password);
-        console.log(user._id);
-        console.log(process.env.SECRET);
+        const user_id = user._id;
+        const user_Name = user.userName;
+        await ResourceOrder.create({ user_id, user_Name, listOfResources });
+
         const token = createToken(user._id);
         res.status(200).json({ userName, token });
     } catch (error) {
@@ -51,8 +56,8 @@ router.get('/calendar', async (req, res) => {
     res.status(200).json(calendarData);
 });
 
-router.get('/resources/:name', async (req, res) => {
-    const modelName = req.params.name;
+router.get('/resources/:type', async (req, res) => {
+    const modelName = req.params.type;
     let model;
 
     try {
@@ -64,6 +69,21 @@ router.get('/resources/:name', async (req, res) => {
 
     const data = await model.find().sort({ Name: 1 });
     res.status(200).json(data);
+});
+
+router.get('/resources/:type/:id', async (req, res) => {
+    const modelName = req.params.type;
+    const id = req.params.id;
+    let model;
+
+    try {
+        model = mongoose.model(modelName);
+        const oneResource = await model.findOne({ _id: id });
+        res.status(200).json(oneResource);
+    } catch (err) {
+        console.log(err);
+        return res.status(404).json({ message: 'Resource not found' });
+    }
 });
 
 export default router;

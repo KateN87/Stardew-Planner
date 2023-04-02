@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import UserResources from '../Components/UserResources';
+import ProjectCard from '../Components/ProjectCard';
 
 const ResourceList = () => {
     const [resource, setResource] = useState('Animals');
@@ -114,7 +114,7 @@ const ResourceList = () => {
                 </div>
                 <ShowResource />
             </div>
-            <UserResources />
+            <ProjectCard />
         </div>
     );
 };

@@ -6,10 +6,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 
 import userReducer from './Reducers/userReducer';
+import resourceOrderReducer from './Reducers/resourceOrderReducer';
 
 const store = configureStore({
     reducer: {
         userReducer: userReducer,
+        resourceOrderReducer: resourceOrderReducer,
     },
 });
 

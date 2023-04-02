@@ -57,7 +57,6 @@ userSchema.statics.signup = async function (userName, password) {
             'Password not strong enough. Needs to be at least 8 characters and contain lower case, upper case, number and special character'
         );
     }
-
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
     const user = await this.create({ userName, password: hash });
