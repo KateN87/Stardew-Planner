@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import ProjectCard from '../Components/ProjectCard';
+import getresourceList from '../Hooks/useResourceList';
 
 const ResourceList = () => {
     const [resource, setResource] = useState('Animals');
@@ -8,30 +9,9 @@ const ResourceList = () => {
 
     useEffect(() => {
         const fetchResources = async () => {
-            let url = '';
-            switch (resource) {
-                case 'Animals':
-                    url = '/api/resources/animalsData';
-                    break;
-                case 'Fish':
-                    url = '/api/resources/fishData';
-                    break;
-                case 'Crops':
-                    url = '/api/resources/cropsData';
-                    break;
-                case 'Minerals':
-                    url = '/api/resources/mineralsData';
-                    break;
-                case 'Artifacts':
-                    url = '/api/resources/artifactsData';
-                    break;
-                case 'Forage':
-                    url = '/api/resources/forageData';
-                    break;
-                default:
-                    break;
-            }
-            const response = await fetch(url);
+            let url = getresourceList(resource);
+
+            const response = await fetch(`/api/resources/${url}`);
             const json = await response.json();
 
             if (response.ok) {

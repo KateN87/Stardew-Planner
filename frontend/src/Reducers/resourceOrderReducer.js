@@ -1,5 +1,3 @@
-const user = { user: null };
-
 const resourceOrderReducer = (state = [], action) => {
     switch (action.type) {
         case 'GET_RESOURCE_ORDER':

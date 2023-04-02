@@ -36,7 +36,7 @@ router.post('/login', async (req, res) => {
 //Signup route
 router.post('/signup', async (req, res) => {
     const { userName, password } = req.body;
-    const listOfResources = [{ itemId: '', itemName: '', quantity: 0 }];
+    const listOfResources = [];
 
     try {
         const user = await User.signup(userName, password);
