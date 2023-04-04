@@ -2,6 +2,7 @@ import express from 'express';
 
 import ResourceOrder from '../models/resourceOrderModel.js';
 import requireAuth from '../middleware/requireAuth.js';
+import GameItem from '../models/gameDataModel.js';
 
 const router = express.Router();
 router.use(requireAuth);
@@ -19,23 +20,25 @@ router.get('/resourceorders', async (req, res) => {
 });
 
 router.patch('/resourceorders', async (req, res) => {
-    const user_id = req.user._id;
-    const { listOfResources } = req.body;
-
+    const { _id: user_id } = req.user;
+    const { itemId, quantity: qty } = req.body.newResource;
     try {
         // Find the ResourceOrder document for the user
         const resourceOrder = await ResourceOrder.findOne({ user_id });
         const updatedResources = [
             ...resourceOrder.listOfResources,
-            ...listOfResources,
+            {
+                ...(await GameItem.findById(itemId)
+                    .select('Name Image')
+                    .lean()),
+                quantity: qty,
+            },
         ];
-
         const updatedOrder = await ResourceOrder.findOneAndUpdate(
             { user_id },
             { listOfResources: updatedResources },
             { new: true } // Return the updated document
         );
-
         res.status(200).json(updatedOrder);
     } catch (error) {
         console.log(error);

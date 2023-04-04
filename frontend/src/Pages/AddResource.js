@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
 import ProjectCard from '../Components/ProjectCard';
-import getresourceList from '../Hooks/useResourceList';
 
 const ResourceList = () => {
     const [resource, setResource] = useState('Animals');
@@ -9,9 +8,7 @@ const ResourceList = () => {
 
     useEffect(() => {
         const fetchResources = async () => {
-            let url = getresourceList(resource);
-
-            const response = await fetch(`/api/resources/${url}`);
+            const response = await fetch(`/api/resources/${resource}`);
             const json = await response.json();
 
             if (response.ok) {
@@ -30,13 +27,10 @@ const ResourceList = () => {
             <div className='card-body'>
                 <h5 className='card-title'>{resource}</h5>
                 {resourceList.map((item) => (
-                    <div
-                        className='calendar-list resourcesList'
-                        key={item.Name}
-                    >
+                    <div className='list-container' key={item.Name}>
                         <p className='container-left'>
                             <img
-                                className='calendar-img'
+                                className='list-img'
                                 src={`${item.Image}`}
                             ></img>
                         </p>

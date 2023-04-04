@@ -20,7 +20,6 @@ const ProjectCard = () => {
 
             if (response.ok) {
                 dispatch({ type: 'GET_RESOURCE_ORDER', payload: json });
-                console.log('FRONT JSON', json);
             }
         };
         fetchResourceOrders();
@@ -38,13 +37,29 @@ const ProjectCard = () => {
             {resourceOrderList.length > 0 && (
                 <div className='card-body'>
                     {resourceOrderList.map((resource) => (
-                        <div className='calendar-list' key={resource.itemId}>
+                        <div className='list-container' key={resource._id}>
+                            <p className='container-left'>
+                                <img
+                                    className='list-img'
+                                    src={`${resource.Image}`}
+                                ></img>
+                            </p>
                             <p className='container-left'>
                                 {resource.quantity}
                             </p>
-                            <p className='container-right'>
-                                {resource.itemName}
-                            </p>
+                            <p className='container-right'>{resource.Name}</p>
+                            <span
+                                className='material-symbols-outlined'
+                                /* onClick={() => handleAdd(item.Name)} */
+                            >
+                                edit
+                            </span>
+                            <span
+                                className='material-symbols-outlined'
+                                /* onClick={() => handleAdd(item.Name)} */
+                            >
+                                delete
+                            </span>
                         </div>
                     ))}
                 </div>

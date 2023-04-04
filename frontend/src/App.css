@@ -91,7 +91,7 @@ div.error {
     justify-content: space-evenly;
 }
 
-.calendar-list {
+.list-container {
     display: flex;
     border: 2px solid #3f0f08;
     border-radius: 4px;
@@ -110,9 +110,6 @@ div.error {
     padding: 3px;
 }
 
-.list-img {
-    width: 50px;
-}
 .container-right {
     margin-left: 30px;
     font-size: 18px;
@@ -127,8 +124,8 @@ div.error {
     padding: 5px;
 }
 
-.calendar-img {
-    margin-left: 20px;
+.list-img {
+    margin: 0 10px 0 5px;
     width: 40px;
 }
 .card-container {

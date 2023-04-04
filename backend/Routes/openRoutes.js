@@ -4,12 +4,7 @@ import mongoose from 'mongoose';
 
 import User from '../models/userModel.js';
 import CalendarData from '../models/calendarModel.js';
-import AnimalsData from '../models/animalsModel.js';
-import ArtifactsData from '../models/artifactsModel.js';
-import CropsData from '../models/cropsModel.js';
-import FishData from '../models/fishModel.js';
-import ForageData from '../models/forageModel.js';
-import MineralsData from '../models/mineralModel.js';
+import GameItem from '../models/gameDataModel.js';
 import ResourceOrder from '../models/resourceOrderModel.js';
 
 const router = express.Router();
@@ -57,29 +52,28 @@ router.get('/calendar', async (req, res) => {
 });
 
 router.get('/resources/:type', async (req, res) => {
-    const modelName = req.params.type;
-    let model;
+    let type = req.params.type;
+    if (type.endsWith('s')) {
+        type = type.slice(0, -1);
+    }
+    console.log('TYPE I SINGULAR', type);
 
     try {
-        model = mongoose.model(modelName);
+        const data = await GameItem.find({ Type: type }).sort({ Name: 1 });
+        res.status(200).json(data);
     } catch (err) {
         console.log(err);
         return res.status(404).json({ message: 'Resource not found' });
     }
-
-    const data = await model.find().sort({ Name: 1 });
-    res.status(200).json(data);
 });
 
-router.get('/resources/:type/:id', async (req, res) => {
-    const modelName = req.params.type;
+router.get('/resource/:id', async (req, res) => {
     const id = req.params.id;
-    let model;
 
     try {
-        model = mongoose.model(modelName);
-        const oneResource = await model.findOne({ _id: id });
-        res.status(200).json(oneResource);
+        const data = await GameItem.findOne({ _id: id });
+        /* const oneResource = await model.findOne({ _id: id }); */
+        res.status(200).json(data);
     } catch (err) {
         console.log(err);
         return res.status(404).json({ message: 'Resource not found' });
