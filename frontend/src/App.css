@@ -9,6 +9,7 @@
     --darkOrange: rgb(186, 100, 1);
     --brightOrange: rgb(255, 136, 0);
     --beige: #ffe0b0;
+    --lightbeige: #fff6d4;
     --error: #e7195a;
 }
 /* background: var(--primary); */
@@ -22,15 +23,6 @@ p {
     margin-bottom: 0px;
 }
 
-button,
-.divLog > span {
-    background-color: var(--beige);
-    box-shadow: 0 0 0 1px rgb(186, 100, 1), 0 0 0 2px rgb(255, 136, 0),
-        0 0 0 3px #3f0f08;
-    color: var(--darkBrown);
-    font-weight: bold;
-}
-
 div.error {
     padding: 10px;
     background: #ffefef;
@@ -38,6 +30,30 @@ div.error {
     color: var(--error);
     border-radius: 4px;
     margin: 20px 0;
+}
+
+button,
+.divLog > span {
+    background-color: var(--beige);
+    box-shadow: 0 0 0 1px rgb(186, 100, 1), 0 0 0 2px rgb(255, 136, 0),
+        0 0 0 3px #3f0f08;
+    color: var(--darkBrown);
+    font-weight: bold;
+    font-size: 15px;
+    padding: 5px;
+}
+.btnNav,
+.divLog > span {
+    margin: 5px;
+    width: 70px;
+    height: 40px;
+}
+
+.divLog > span {
+    display: flex;
+    border: 2px solid var(--darkBrown);
+    justify-content: center;
+    align-items: center;
 }
 
 .navbar {
@@ -65,20 +81,6 @@ div.error {
     margin: 10px;
 }
 
-.btnNav,
-.divLog > span {
-    margin: 5px;
-    width: 70px;
-    height: 40px;
-}
-
-.divLog > span {
-    display: flex;
-    border: 2px solid var(--darkBrown);
-    justify-content: center;
-    align-items: center;
-}
-
 .card,
 .list-group {
     width: 400px;
@@ -93,10 +95,10 @@ div.error {
 
 .list-container {
     display: flex;
-    border: 2px solid #3f0f08;
+    border: 2px solid var(--darkBrown);
     border-radius: 4px;
     margin: 5px;
-    background-color: #fff6d4;
+    background-color: var(--lightbeige);
     width: 350px;
     height: 50px;
     font-size: 20px;
@@ -105,6 +107,7 @@ div.error {
 }
 
 .btnRight {
+    box-shadow: none;
     margin-right: 5px;
     font-size: 15px;
     padding: 3px;
@@ -142,6 +145,13 @@ div.error {
     justify-content: space-between;
     font-size: 25px;
 }
+.card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffe0b0;
+    padding: 10px;
+}
 
 .list-header {
     display: flex;
@@ -152,17 +162,16 @@ div.error {
     width: 40%;
 }
 
-.card-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #ffe0b0;
-    padding: 10px;
-}
 #resource {
     font-size: 15px;
     padding: 7px;
     font-weight: 600;
+}
+
+.material-symbols-outlined {
+    color: var(--darkBrown);
+    margin: 5px;
+    cursor: pointer;
 }
 
 .card-header-tabs .nav-link.active {

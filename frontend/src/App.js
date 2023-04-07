@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Home from './Pages/Home';
-import ResourceList from './Pages/AddResource';
+import ResourceList from './Pages/ResourceList';
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
 

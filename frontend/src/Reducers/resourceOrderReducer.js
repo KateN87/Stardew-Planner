@@ -4,8 +4,10 @@ const resourceOrderReducer = (state = [], action) => {
             return action.payload;
         case 'ADD_RESOURCE':
             return state;
-        case 'DELETE_RESOURCE':
+        case 'DELETE_ONE_RESOURCE':
             return state;
+        case 'DELETE_ALL_RESOURCE':
+            return action.payload;
         case 'EDIT_RESOURCE':
             return state;
         default:

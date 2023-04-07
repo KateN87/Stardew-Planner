@@ -34,12 +34,12 @@ router.patch('/resourceorders', async (req, res) => {
                 quantity: qty,
             },
         ];
-        const updatedOrder = await ResourceOrder.findOneAndUpdate(
+        const { listOfResources } = await ResourceOrder.findOneAndUpdate(
             { user_id },
             { listOfResources: updatedResources },
             { new: true } // Return the updated document
         );
-        res.status(200).json(updatedOrder);
+        res.status(200).json(listOfResources);
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: 'Error adding resource to order.' });

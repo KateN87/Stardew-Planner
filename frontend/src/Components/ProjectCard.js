@@ -23,7 +23,6 @@ const ProjectCard = () => {
             }
         };
         fetchResourceOrders();
-        console.log('FRONT resourceOrderList', resourceOrderList);
     }, []);
 
     return (
@@ -50,13 +49,13 @@ const ProjectCard = () => {
                             <p className='container-right'>{resource.Name}</p>
                             <span
                                 className='material-symbols-outlined'
-                                /* onClick={() => handleAdd(item.Name)} */
+                                /* onClick={() => handleEdit(item._id)} */
                             >
                                 edit
                             </span>
                             <span
                                 className='material-symbols-outlined'
-                                /* onClick={() => handleAdd(item.Name)} */
+                                /* onClick={() => handleRemove(item._id)} */
                             >
                                 delete
                             </span>

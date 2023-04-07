@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import ProjectCard from '../Components/ProjectCard';
+import ShowResource from '../Components/ShowResource';
 
 const ResourceList = () => {
     const [resource, setResource] = useState('Animals');
@@ -17,42 +18,6 @@ const ResourceList = () => {
         };
         fetchResources();
     }, [resource]);
-
-    const handleAdd = (name) => {
-        console.log(name);
-    };
-
-    const ShowResource = () => {
-        return (
-            <div className='card-body'>
-                <h5 className='card-title'>{resource}</h5>
-                {resourceList.map((item) => (
-                    <div className='list-container' key={item.Name}>
-                        <p className='container-left'>
-                            <img
-                                className='list-img'
-                                src={`${item.Image}`}
-                            ></img>
-                        </p>
-                        <p className='container-right'>{item.Name}</p>{' '}
-                        <input
-                            className='small-input'
-                            type='number'
-                            placeholder='Qty'
-                            min='0'
-                            max='999'
-                        />
-                        <button
-                            className='btnRight'
-                            onClick={() => handleAdd(item.Name)}
-                        >
-                            Add
-                        </button>
-                    </div>
-                ))}
-            </div>
-        );
-    };
 
     const ResourceHeader = (props) => {
         return (
@@ -86,7 +51,10 @@ const ResourceList = () => {
                         <ResourceHeader resource='Forage' />
                     </ul>
                 </div>
-                <ShowResource />
+                <ShowResource
+                    setResource={setResource}
+                    resourceList={resourceList}
+                />
             </div>
             <ProjectCard />
         </div>
