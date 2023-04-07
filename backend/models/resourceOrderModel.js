@@ -2,6 +2,21 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
+const resourceSchema = new Schema({
+    Name: {
+        type: String,
+        required: true,
+    },
+    Image: {
+        type: String,
+        required: true,
+    },
+    quantity: {
+        type: Number,
+        required: true,
+    },
+});
+
 const resourceOrderSchema = new Schema({
     user_id: {
         type: String,
@@ -12,11 +27,11 @@ const resourceOrderSchema = new Schema({
         required: true,
     },
     listOfResources: {
-        type: Array,
+        type: [resourceSchema],
         required: true,
     },
 });
 
-const resourceOrder = mongoose.model('ResourceOrder', resourceOrderSchema);
+const ResourceOrder = mongoose.model('ResourceOrder', resourceOrderSchema);
 
-export default resourceOrder;
+export default ResourceOrder;

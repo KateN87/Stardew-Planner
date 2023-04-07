@@ -16,7 +16,19 @@ function App() {
     useEffect(() => {
         const checkUser = JSON.parse(localStorage.getItem('user'));
         if (user) {
-            dispatch({ type: 'LOGIN', payload: checkUser });
+            const checkJwt = async () => {
+                const response = await fetch('/', {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+                if (response.ok) {
+                    console.log('OK');
+                    dispatch({ type: 'LOGIN', payload: checkUser });
+                }
+            };
+            checkJwt();
         }
     }, []);
 

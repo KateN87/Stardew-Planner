@@ -9,6 +9,8 @@ const ProjectCard = () => {
         (state) => state.resourceOrderReducer
     );
 
+    console.log(resourceOrderList);
+
     useEffect(() => {
         const fetchResourceOrders = async () => {
             const response = await fetch(`/api/user/resourceorders`, {
@@ -22,8 +24,24 @@ const ProjectCard = () => {
                 dispatch({ type: 'GET_RESOURCE_ORDER', payload: json });
             }
         };
-        fetchResourceOrders();
-    }, []);
+        if (user.token) {
+            fetchResourceOrders();
+        }
+    }, [user.token]);
+
+    const handleRemove = async (id) => {
+        const response = await fetch(`api/user/resourceorders/${id}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        });
+        const json = await response.json();
+
+        if (response.ok) {
+            dispatch({ type: 'GET_RESOURCE_ORDER', payload: json });
+        }
+    };
 
     return (
         <div className='card card-container'>
@@ -55,7 +73,7 @@ const ProjectCard = () => {
                             </span>
                             <span
                                 className='material-symbols-outlined'
-                                /* onClick={() => handleRemove(item._id)} */
+                                onClick={() => handleRemove(resource._id)}
                             >
                                 delete
                             </span>
